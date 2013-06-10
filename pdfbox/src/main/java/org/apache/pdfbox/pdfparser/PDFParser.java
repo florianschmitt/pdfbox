@@ -335,9 +335,15 @@ public class PDFParser extends BaseParser
         {
             if(!header.matches(PDF_HEADER + "\\d.\\d")) 
             {
-                String headerGarbage = header.substring(PDF_HEADER.length()+3, header.length()) + "\n";
-                header = header.substring(0, PDF_HEADER.length()+3);
-                pdfSource.unread(headerGarbage.getBytes("ISO-8859-1"));
+                //hack
+                if (PDF_HEADER.length()+3 > header.length()) {
+                    header = "%PDF-1.4";
+                }
+                else {
+                    String headerGarbage = header.substring(PDF_HEADER.length()+3, header.length()) + "\n";
+                    header = header.substring(0, PDF_HEADER.length()+3);
+                    pdfSource.unread(headerGarbage.getBytes("ISO-8859-1"));
+                }
             }
         }
         else 

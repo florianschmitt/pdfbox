@@ -47,6 +47,9 @@ public final class COSName extends COSBase implements Comparable<COSName>
     private static Map<String, COSName> commonNameMap =
         new HashMap<String, COSName>();
 
+    public static final COSName _3DD = new COSName( "3DD" );
+    public static final COSName EMBEDDED_FILE = new COSName( "EmbeddedFile" );
+    public static final COSName JS = new COSName( "JS" );
     /**
      * A common COSName value.
      */

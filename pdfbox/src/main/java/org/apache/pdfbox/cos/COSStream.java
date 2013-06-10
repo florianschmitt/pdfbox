@@ -19,6 +19,8 @@ package org.apache.pdfbox.cos;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -261,11 +263,12 @@ public class COSStream extends COSDictionary
             //if the length is zero then don't bother trying to decode
             //some filters don't work when attempting to decode
             //with a zero length stream.  See zlib_error_01.pdf
-            unFilteredStream = new RandomAccessFileOutputStream( file );
-            done = true;
+//            unFilteredStream = new RandomAccessFileOutputStream( file );
+//            done = true;
+            length = writtenLength;
         }
-        else
-        {
+//        else
+//        {
             //ok this is a simple hack, sometimes we read a couple extra
             //bytes that shouldn't be there, so we encounter an error we will just
             //try again with one less byte.
@@ -274,7 +277,7 @@ public class COSStream extends COSDictionary
                 try
                 {
                     input = new BufferedInputStream(
-                        new RandomAccessFileInputStream( file, position, length ), BUFFER_SIZE );
+                            new RandomAccessFileInputStream( file, position, length ), BUFFER_SIZE );
                     unFilteredStream = new RandomAccessFileOutputStream( file );
                     filter.decode( input, unFilteredStream, this, filterIndex );
                     done = true;
@@ -308,7 +311,7 @@ public class COSStream extends COSDictionary
                     }
                 }
             }
-        }
+//        }
         if( !done )
         {
             throw exception;

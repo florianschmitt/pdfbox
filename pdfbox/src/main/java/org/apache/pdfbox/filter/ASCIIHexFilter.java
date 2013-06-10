@@ -75,7 +75,7 @@ public class ASCIIHexFilter implements Filter
             {
                 firstByte = compressedData.read();
             }
-            if(isEOD(firstByte))
+            if(isEOD(firstByte) || firstByte == -1 || firstByte > 102)
             {
                 break;
             }

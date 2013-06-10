@@ -124,17 +124,19 @@ public class FlateFilter implements Filter
                     catch (OutOfMemoryError exception) 
                     {
                         // if the stream is corrupt an OutOfMemoryError may occur
-                        log.error("Stop reading corrupt stream");
+                        log.error("Stop reading corrupt stream", exception);
                     }
                     catch (ZipException exception) 
                     {
                         // if the stream is corrupt an OutOfMemoryError may occur
-                        log.error("Stop reading corrupt stream");
+                        //log.error("Stop reading corrupt stream", exception);
+                        throw new IOException();
                     }
                     catch (EOFException exception) 
                     {
                         // if the stream is corrupt an OutOfMemoryError may occur
-                        log.error("Stop reading corrupt stream");
+                        //log.error("Stop reading corrupt stream", exception);
+                        throw new IOException();
                     }
                 }
                 else
